@@ -7,9 +7,11 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import CONFIG from "./config";
 
 export default function LoginPage() {
@@ -18,6 +20,8 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -118,6 +122,11 @@ export default function LoginPage() {
       ) : (
         <Button title="Login" onPress={handleSubmit(onSubmit)} />
       )}
+
+      {/* Link to Register Page */}
+      <TouchableOpacity onPress={() => navigation.navigate("register")}>
+        <Text style={styles.link}>Don't have an account? Register here</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -150,5 +159,10 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     marginBottom: 10,
+  },
+  link: {
+    color: "#007bff",
+    marginTop: 15,
+    textAlign: "center",
   },
 });
