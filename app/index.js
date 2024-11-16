@@ -6,7 +6,7 @@ export default function Page() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Our App</Text>
+      <Text style={styles.title}>Welcome to Our Fridge Elf App</Text>
       <Text style={styles.subtitle}>Please login or register to continue</Text>
 
       <View style={styles.buttonContainer}>
