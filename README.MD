@@ -1,12 +1,12 @@
-## Install dependencies 
+## 1. Install dependencies 
 
-bash```
+```bash
 npm install
 ```
 
 
-## Start 
+## 2. Start app
 
-bash```
+```bash
 npx expo start
 ```
