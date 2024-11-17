@@ -16,7 +16,6 @@ export default function Tab() {
 
   return (
     <View style={styles.container}>
-      <Text>Tab Settings</Text>
       <Button title="Logout" onPress={() => logout()} />
     </View>
   );

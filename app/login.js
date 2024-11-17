@@ -53,7 +53,8 @@ export default function LoginPage() {
 
         Alert.alert("Login Successful", "Welcome back!");
         console.log("Token:", result.access_token);
-
+        // const token = await AsyncStorage.getItem("token");
+        // console.log("Get Token:", token);
         // Navigate to another screen or perform further actions
         navigation.navigate("(tabs)");
       } else {
