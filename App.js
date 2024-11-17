@@ -40,11 +40,7 @@ export default function App() {
           component={RegisterPage}
           options={{ title: "Register" }}
         />
-        <Stack.Screen
-          name="HomePage"
-          component={HomePage}
-          options={{ title: "Home" }}
-        />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

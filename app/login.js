@@ -55,7 +55,7 @@ export default function LoginPage() {
         console.log("Token:", result.access_token);
 
         // Navigate to another screen or perform further actions
-        navigation.navigate("(home)");
+        navigation.navigate("(tabs)");
       } else {
         Alert.alert("Login Failed", result.detail || "Invalid credentials.");
       }
