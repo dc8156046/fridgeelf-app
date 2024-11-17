@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
-import { CONFIG } from "./config";
 
 export default function RegisterPage() {
   const {
@@ -30,19 +29,24 @@ export default function RegisterPage() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${CONFIG.API_BASE_URL}/auth/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://fastapifridgeelf-production.up.railway.app/auth/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
+      console.log("Response:", result);
       setIsLoading(false);
 
       if (response.ok) {
         Alert.alert("Registration Successful", "Welcome! You can now log in.");
+        navigation.navigate("login");
       } else {
         Alert.alert(
           "Registration Failed",
