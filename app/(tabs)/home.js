@@ -225,6 +225,7 @@ export default function Home() {
               style={styles.input}
               placeholder="Enter item name"
               value={newItemName}
+              required
               onChangeText={setNewItemName}
             />
 
@@ -233,6 +234,7 @@ export default function Home() {
               style={styles.input}
               placeholder="Enter quantity"
               value={quantity}
+              required
               onChangeText={setQuantity}
               keyboardType="numeric"
             />
