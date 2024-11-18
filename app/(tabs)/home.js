@@ -32,6 +32,19 @@ export default function Home() {
   const addItem = async () => {
     // Add item logic here
     console.log("Item added:", newItemName, quantity, expireDate, category);
+    if (!newItemName) {
+      alert("Please enter item name");
+      return;
+    }
+    if (!category) {
+      alert("Please select a category");
+      return;
+    }
+
+    if (!quantity) {
+      alert("Please enter a quantity");
+      return;
+    }
 
     createItem({ newItemName, quantity, expireDate, category });
     // Close the modal
