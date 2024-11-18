@@ -23,21 +23,62 @@ export default function Home() {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newItemName, setNewItemName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [expireDate, setExpireDate] = useState(new Date());
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(1);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [area, setArea] = useState(1); // New state for area selection
 
-  const addItem = () => {
+  const addItem = async () => {
     // Add item logic here
     console.log("Item added:", newItemName, quantity, expireDate, category);
+
+    createItem({ newItemName, quantity, expireDate, category });
+    // Close the modal
+    setIsModalVisible(false);
+
     // Reset the form
     setNewItemName("");
     setQuantity("");
     setExpireDate(new Date());
     setCategory("");
+  };
+
+  const createItem = async ({
+    newItemName,
+    quantity,
+    expireDate,
+    category,
+  }) => {
+    const token = await AsyncStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `https://fastapifridgeelf-production.up.railway.app/items/`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            name: newItemName,
+            quantity: quantity,
+            expire_date: expireDate.toISOString(),
+            category_id: category,
+          }),
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      if (response.ok) {
+        fetchItems(areaId);
+      } else {
+        Alert.alert("Error", "Failed to add item");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDateChange = (event, selectedDate) => {
@@ -109,37 +150,43 @@ export default function Home() {
     }
   };
 
-  const handleCheck = (blockId, itemId) => {
-    setItems((prevItems) =>
-      prevItems.map((block) =>
-        block.id === blockId
-          ? {
-              ...block,
-              items: block.items.map((item) =>
-                item.id === itemId ? { ...item, checked: !item.checked } : item
-              ),
-            }
-          : block
-      )
-    );
-  };
-
-  const handleTrash = () => {
-    Alert.alert("Confirm", "Are you sure you want to delete selected items?", [
+  const handleDelete = async (blockId, itemId) => {
+    //alert(`Block ID: ${blockId}, Item ID: ${itemId}`);
+    Alert.alert("Confirm", "Are you sure you want to delete this item?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Delete",
         style: "destructive",
         onPress: () => {
-          setItems((prevItems) =>
-            prevItems.map((block) => ({
-              ...block,
-              items: block.items.filter((item) => !item.checked),
-            }))
-          );
+          deleteItem(itemId);
         },
       },
     ]);
+  };
+
+  const deleteItem = async (itemId) => {
+    const token = await AsyncStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `https://fastapifridgeelf-production.up.railway.app/items/${itemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      if (response.ok) {
+        fetchItems(areaId);
+      } else {
+        Alert.alert("Error", "Failed to delete item");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -210,9 +257,9 @@ export default function Home() {
 
             {/* Area Picker */}
             <Picker
-              selectedValue={area}
+              selectedValue={areaId}
               style={styles.picker}
-              onValueChange={(itemValue) => setArea(itemValue)} // Updating area
+              onValueChange={(itemValue) => setAreaId(itemValue)} // Updating area
             >
               <Picker.Item label="Select Area" value="" />
               {areas.map((area, index) => (
@@ -254,26 +301,26 @@ export default function Home() {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={styles.item}>
-                <CheckBox
-                  isChecked={item.checked}
-                  onClick={() => handleCheck(category.id, item.id)}
-                />
                 <View style={styles.itemDetails}>
                   <Text style={styles.itemText}>
-                    {item.name} - {item.quantity} pcs - Expires:{" "}
-                    {item.expire_date}
+                    {item.name} - {item.quantity} pcs
+                  </Text>
+                  <Text style={styles.itemText}>
+                    Expire Date: {new Date(item.expire_date).toDateString()}
                   </Text>
                 </View>
+                {/* Delete Button */}
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handleDelete(category.id, item.id)}
+                >
+                  <Text style={styles.deleteButtonText}>Delete</Text>
+                </TouchableOpacity>
               </View>
             )}
           />
         </View>
       ))}
-
-      {/* Trash Button */}
-      <TouchableOpacity style={styles.trashButton} onPress={handleTrash}>
-        <Text style={styles.trashButtonText}>Trash</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -344,16 +391,16 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16,
   },
-  trashButton: {
-    backgroundColor: "#d9534f",
-    padding: 15,
+  deleteButton: {
+    marginLeft: 10,
+    backgroundColor: "red",
+    padding: 8,
     borderRadius: 5,
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
   },
-  trashButtonText: {
-    color: "#fff",
-    fontSize: 16,
+  deleteButtonText: {
+    color: "white",
     fontWeight: "bold",
   },
   modalContainer: {
