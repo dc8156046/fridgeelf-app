@@ -11,7 +11,7 @@ import {
   Button,
   ScrollView,
 } from "react-native";
-import CheckBox from "react-native-check-box";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
