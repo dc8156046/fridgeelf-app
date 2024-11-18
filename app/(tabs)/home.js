@@ -172,13 +172,11 @@ export default function Home() {
         {
           method: "DELETE",
           headers: {
-            Accept: "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      const result = await response.json();
-      console.log(result);
+
       if (response.ok) {
         fetchItems(areaId);
       } else {
