@@ -10,18 +10,16 @@ export default function WelcomePage() {
       <Text style={styles.title}>Welcome to Our Fridge Elf App</Text>
       <Text style={styles.subtitle}>Please login or register to continue</Text>
 
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Login"
-          onPress={() => navigation.navigate("login")} // Navigate to Login page
-        />
+      <View>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("login")}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button
-          title="Register"
-          onPress={() => navigation.navigate("register")} // Navigate to Register page
-        />
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("register")}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -50,5 +48,18 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     marginVertical: 10,
+  },
+  button: {
+    backgroundColor: "#61C0BF",
+    paddingVertical: 10,
+    width: 150,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

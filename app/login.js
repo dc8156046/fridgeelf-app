@@ -122,7 +122,9 @@ export default function LoginPage() {
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <Button title="Login" onPress={handleSubmit(onSubmit)} />
+        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+           <Text style={styles.buttonText}>Login</Text>
+       </TouchableOpacity>
       )}
 
       {/* Link to Register Page */}
@@ -166,5 +168,17 @@ const styles = StyleSheet.create({
     color: "#007bff",
     marginTop: 15,
     textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#61C0BF",
+    paddingVertical: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
