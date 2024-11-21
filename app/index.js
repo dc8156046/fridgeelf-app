@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Image } from "react-native";
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomePage() {
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     marginVertical: 10,
+    justifyContent: "center",
   },
   button: {
     backgroundColor: "#61C0BF",
@@ -56,10 +57,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     marginTop: 10,
+    justifyContent: "center",
   },
   buttonText: {
     color: "#ffffff",
     fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
