@@ -16,7 +16,9 @@ export default function Tab() {
 
   return (
     <View style={styles.container}>
-      <Button title="Logout" onPress={() => logout()} />
+      <TouchableOpacity style={styles.button} onPress={() => logout()}>
+         <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -27,5 +29,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FAE3D9",
+  },
+  button: {
+    backgroundColor: "#61C0BF",
+    paddingVertical: 10,
+    width: 150,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
