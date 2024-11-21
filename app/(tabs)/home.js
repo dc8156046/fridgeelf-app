@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "#FAE3D9",
   },
   buttonContainer: {
     flexDirection: "row",

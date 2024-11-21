@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomePage() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <Image source={require("../assets/fridge_elf.png")} />
       <Text style={styles.title}>Welcome to Our Fridge Elf App</Text>
       <Text style={styles.subtitle}>Please login or register to continue</Text>
 
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "#FAE3D9",
   },
   title: {
     fontSize: 28,

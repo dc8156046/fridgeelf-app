@@ -176,7 +176,8 @@ export default function RegisterPage() {
 
       {/* Link to Login Page */}
       <TouchableOpacity onPress={() => navigation.navigate("login")}>
-        <Text style={styles.link}>Already have an account? Login here</Text>
+      <Text style={styles.text}> Already have an account? <Text style={styles.link}>Login here</Text></Text>
+
       </TouchableOpacity>
     </View>
   );
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#f8f9fa",
+    backgroundColor: "#FAE3D9",
   },
   header: {
     fontSize: 24,
@@ -216,4 +217,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: "center",
   },
+
+  text: {
+    color: "black",
+    textAlign: "center",
+    marginTop: 3,
+  },
+
 });
